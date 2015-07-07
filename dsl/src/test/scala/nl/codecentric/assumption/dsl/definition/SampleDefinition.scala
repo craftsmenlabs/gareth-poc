@@ -9,11 +9,16 @@ import scala.collection.mutable
  */
 class SampleDefinition extends BaseDefinition {
 
-
-
-  "this is glue" baseline (() => {
+  "this is baseline" baseline (() => {
     println("x")
   })
 
-  override def definitionMap: mutable.Map[String, () => Unit] = ExperimentEngineBuilder.definitionMap
+  "this is assume" assumes (() => {
+    println("y")
+  })
+
+  "this is time" time (() => {
+    println("z")
+  })
+
 }

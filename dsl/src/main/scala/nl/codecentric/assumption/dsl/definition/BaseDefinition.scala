@@ -8,8 +8,12 @@ import scala.collection.mutable
 /**
  * Created by hylke on 06/07/15.
  */
-trait BaseDefinition extends GlueVerb {
+abstract class BaseDefinition extends GlueVerb {
 
-  override def definitionMap: mutable.Map[String, () => Unit] = ExperimentEngineBuilder.definitionMap
+  override def baselineDefinitionMap: mutable.Map[String, () => Unit] = ExperimentEngineBuilder.baselineDefinitionMap
+
+  override def assumeDefinitionMap: mutable.Map[String, () => Unit] = ExperimentEngineBuilder.assumeDefinitionMap
+
+  override def timeDefinitionMap: mutable.Map[String, () => Unit] = ExperimentEngineBuilder.timeDefinitionMap
 
 }
