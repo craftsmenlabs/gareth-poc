@@ -10,7 +10,8 @@ object ExperimentJsonProtocol extends DefaultJsonProtocol {
 
   implicit object ExperimentJsonFormat extends RootJsonFormat[Experiment] {
     def write(experiment: Experiment) = JsObject(
-      "name" -> JsString(experiment.experimentName)
+      "name" -> JsString(experiment.experimentName),
+      "assumptions" -> experiment.assumptions.toJson
     )
 
     def read(value: JsValue): Experiment = {
@@ -23,8 +24,10 @@ object ExperimentJsonProtocol extends DefaultJsonProtocol {
       throw new UnsupportedOperationException("Assumption block can only be read from file")
     }
 
-    override def write(obj: AssumptionBlock): JsValue = JsObject(
-
+    override def write(assumptionBlock: AssumptionBlock) = JsObject(
+      "assumption" -> JsString(assumptionBlock.assumption.glueLine),
+      "baseline" -> JsString(assumptionBlock.baseline.glueLine),
+      "time" -> JsString(assumptionBlock.time.glueLine)
     )
   }
 

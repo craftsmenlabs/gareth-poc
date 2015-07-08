@@ -2,7 +2,8 @@ package nl.codecentric.assumption.web.actor
 
 import akka.actor.Actor
 import nl.codecentric.assumption.dsl.ExperimentEngineBuilder
-import spray.http.MediaTypes
+import spray.http.HttpHeaders.{`Access-Control-Allow-Origin`, Origin, `Content-Type`}
+import spray.http.{AllOrigins, HttpOrigin, MediaTypes}
 import spray.routing.HttpService
 import spray.json._
 import nl.codecentric.assumption.web.json.ExperimentJsonProtocol._
@@ -19,9 +20,9 @@ class ExperimentServiceActor extends Actor with ExperimentService {
 
 trait ExperimentService extends HttpService {
 
-  val experimentRoute = path("") {
+  val experimentRoute = path("experiments") {
     get {
-      respondWithMediaType(MediaTypes.`application/json`) {
+      respondWithHeaders(Origin(Seq(HttpOrigin("http://localhost:9999"))), `Content-Type`(MediaTypes.`application/json`), `Access-Control-Allow-Origin`(AllOrigins)) {
         complete {
           import spray.httpx.SprayJsonSupport._
           ExperimentEngineBuilder.loadExperiment("experiment-0001.experiment")
@@ -30,5 +31,4 @@ trait ExperimentService extends HttpService {
       }
     }
   }
-
 }
