@@ -1,15 +1,14 @@
 {
-  "name": "webserver-js",
+  "name": "experiment-dashboard",
   "version": "0.1.0",
   "author": "Hylke Stapersma",
-  "description": "A simple web server",
+  "description": "Dashboard for viewing the experiment dashboard",
   "main": "server.js",
   "engines": {
     "iojs": ">= 1.0.3"
   },
   "dependencies": {
-    "express": ">=4.0.0",
-    "winston": ">=1.0.1"
+    "express": ">=4.0.0"
   },
   "devDependencies": {
   },
@@ -17,6 +16,7 @@
   },
   "repository": "",
   "keywords": [
-    "webserver"
+    "webserver",
+    "dashboard"
   ]
 }

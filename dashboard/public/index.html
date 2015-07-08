@@ -1,0 +1,61 @@
+<!doctype html>
+<html class="no-js" lang="" ng-app="experimentApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Experiment Dashboard</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+    <script src="js/experiments.js"></script>
+</head>
+<body>
+
+<h1>Experiment Dashboard</h1>
+
+<div class="container">
+    <div class="row" ng-controller="ExperimentController as experimentController">
+        <h2>Running experiments</h2>
+
+        <p>List of experiments</p>
+
+        <div ng-repeat="experiment in experiments">
+            <h3>{{experiment.name}}</h3>
+            <table class="table" ng-repeat="assumption in experiment.assumptions">
+
+                <tr>
+                    <th>Assumption</th>
+                    <td>{{assumption.assumption}}</td>
+                    <td>Fail/pass/Running</td>
+                </tr>
+
+                <tr>
+                    <th>Baseline</th>
+                    <td>{{assumption.baseline}}</td>
+                    <td>Fail/pass</td>
+                </tr>
+
+                <tr>
+                    <th colspan="2">Start</th>
+                    <td>15-12-2013 15:57</td>
+                </tr>
+                <tr>
+                    <th colspan="2">Eind</th>
+                    <td>15-12-2013 15:57</td>
+                </tr>
+
+
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
