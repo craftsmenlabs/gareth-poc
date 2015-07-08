@@ -1,12 +1,13 @@
 package nl.codecentric.assumption.dsl.parser
 
-import java.io.{BufferedReader, FileNotFoundException}
+import java.io.{File, BufferedReader, FileNotFoundException}
 
 import nl.codecentric.assumption.dsl.model.Experiment
 
 import scala.collection.immutable.TreeSet
 import scala.collection.mutable
 import scala.io.Source
+import scala.reflect.internal.util.ScalaClassLoader.URLClassLoader
 import scala.util.parsing.input.{StreamReader, CharArrayReader}
 ;
 
@@ -17,7 +18,7 @@ object ExperimentParser {
 
   val KEYWORD_EXPERIMENT = "Experiment:"
 
-  val EXPERMINTDIR = "/experiments/"
+  val EXPERMINTDIR = "experiments/"
 
   def parserExperiment(fileName: String): Experiment = {
     val experimentLines = readFile(EXPERMINTDIR + fileName)
@@ -32,10 +33,10 @@ object ExperimentParser {
   private def readFile(fileName: String): String = {
     var lines: String = null
     try {
-      val experimentFile = Source.fromInputStream(getClass()
-        .getResourceAsStream(fileName))
+      val experimentClassLoader = new URLClassLoader(Array(new File("src/experiment/resources").toURI.toURL), getClass().getClassLoader())
+      val experimentFile = Source.fromInputStream(experimentClassLoader.getResourceAsStream(fileName))
       try
-        lines = Source.fromInputStream(getClass()
+        lines = Source.fromInputStream(experimentClassLoader
           .getResourceAsStream(fileName))
           .mkString
       finally

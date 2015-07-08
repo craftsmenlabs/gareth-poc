@@ -11,4 +11,8 @@ class OtherDefinition extends BaseDefinition{
     println("other")
   })
 
+  "Check the log" baseline (() => {
+    println("Checking the log")
+  })
+
 }
