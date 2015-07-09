@@ -1,7 +1,7 @@
 package nl.codecentric.assumption.web.actor
 
 import akka.actor.Actor
-import nl.codecentric.assumption.dsl.ExperimentEngineBuilder
+import nl.codecentric.assumption.dsl.core.ExperimentEngineBuilder
 import spray.http.HttpHeaders.{`Access-Control-Allow-Origin`, Origin, `Content-Type`}
 import spray.http.{AllOrigins, HttpOrigin, MediaTypes}
 import spray.routing.HttpService

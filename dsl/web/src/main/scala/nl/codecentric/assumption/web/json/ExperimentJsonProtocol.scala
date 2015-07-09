@@ -1,6 +1,6 @@
 package nl.codecentric.assumption.web.json
 
-import nl.codecentric.assumption.dsl.model.{AssumptionBlock, Experiment}
+import nl.codecentric.assumption.dsl.api.model.{AssumptionBlock, Experiment}
 import spray.json._
 
 /**
