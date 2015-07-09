@@ -1,14 +1,20 @@
 package nl.codecentric.assumption.dsl
 
+import java.io.File
+
 import nl.codecentric.assumption.dsl.model.Experiment
 import nl.codecentric.assumption.dsl.parser.ExperimentParser
 
 import scala.collection.mutable
+import scala.reflect.internal.util.ScalaClassLoader.URLClassLoader
 
 /**
  * Created by hylke on 06/07/15.
  */
 object ExperimentEngineBuilder {
+
+
+  val experimentClassLoader = new URLClassLoader(Array(new File("src/experiment/scala").toURI.toURL), getClass().getClassLoader)
 
 
   val ru = scala.reflect.runtime.universe
@@ -21,13 +27,8 @@ object ExperimentEngineBuilder {
 
   val experiments: mutable.MutableList[Experiment] = mutable.MutableList[Experiment]()
 
-  def loadDefinition(className: String): Unit = {
-
-  }
-
-  def getClassInstance(classLoader: ClassLoader, clsName: String): Any = {
-    val mirror = ru.runtimeMirror(classLoader)
-    Class.forName(clsName).newInstance()
+  def loadDefinition(clsName: String): Any = {
+    Class.forName(clsName, true, experimentClassLoader).newInstance()
   }
 
   def loadExperiment(fileName: String): Unit = {

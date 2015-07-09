@@ -20,12 +20,20 @@ class ExperimentServiceActor extends Actor with ExperimentService {
 
 trait ExperimentService extends HttpService {
 
+  private def init: Unit = {
+    ExperimentEngineBuilder.loadExperiment ("experiment-0001.experiment")
+    ExperimentEngineBuilder.loadDefinition("examples.definition.OtherDefinition")
+    ExperimentEngineBuilder.runBaselinesForExperiment("Reduce failed logins")
+  }
+
+  init
+
+
   val experimentRoute = path("experiments") {
     get {
       respondWithHeaders(Origin(Seq(HttpOrigin("http://localhost:9999"))), `Content-Type`(MediaTypes.`application/json`), `Access-Control-Allow-Origin`(AllOrigins)) {
         complete {
           import spray.httpx.SprayJsonSupport._
-          ExperimentEngineBuilder.loadExperiment("experiment-0001.experiment")
           ExperimentEngineBuilder.experiments.toList
         }
       }

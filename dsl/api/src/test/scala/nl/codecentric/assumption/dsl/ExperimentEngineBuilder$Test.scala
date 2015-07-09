@@ -39,7 +39,7 @@ class ExperimentEngineBuilder$Test extends FlatSpec with Matchers with BeforeAnd
   }
 
   def loadDefinitionFromClass(fullClassName: String): Unit = {
-    ExperimentEngineBuilder.getClassInstance(new URLClassLoader(Array(new File("experiment").toURI.toURL), getClass().getClassLoader), fullClassName)
+    ExperimentEngineBuilder.loadDefinition(fullClassName)
   }
 
 
