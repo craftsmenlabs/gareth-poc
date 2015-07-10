@@ -30,7 +30,7 @@ class ExperimentEngineBuilder$Test extends FlatSpec with Matchers with BeforeAnd
 
     ExperimentEngineBuilder.loadExperiment("other.experiment")
 
-    ExperimentEngineBuilder.runBaselinesForExperiment("This another experiment")
+    ExperimentEngineBuilder.runExperiment("This another experiment")
 
 
   }

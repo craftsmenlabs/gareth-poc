@@ -2,6 +2,9 @@ package nl.codecentric.assumption.dsl.core
 
 import java.io.File
 
+import akka.actor.ActorSystem
+import scala.concurrent.ExecutionContext
+import scala.concurrent.duration._
 import nl.codecentric.assumption.dsl.api.model.Experiment
 import nl.codecentric.assumption.dsl.core.parser.ExperimentParser
 import nl.codecentric.assumption.dsl.core.registry.CoreDefinitionRegistry
@@ -15,9 +18,11 @@ import scala.reflect.internal.util.ScalaClassLoader.URLClassLoader
  */
 object ExperimentEngineBuilder {
 
+  import ExecutionContext.Implicits.global
+
+  val system = ActorSystem("ExperimentEngine")
 
   val experimentClassLoader = new URLClassLoader(Array(new File("src/experiment/scala").toURI.toURL), getClass().getClassLoader)
-
 
   val ru = scala.reflect.runtime.universe
 
@@ -40,8 +45,13 @@ object ExperimentEngineBuilder {
     experiments += experiment
   }
 
-  def runBaselinesForExperiment(experimentName: String): Unit = {
+  def runExperiment(experimentName: String): Unit = {
     val experiment = findExperimentByName(experimentName)
+    runBaselineForExperiments(experiment)
+    planAssumptions(experiment)
+  }
+
+  private def runBaselineForExperiments(experiment: Experiment): Unit = {
     experiment.assumptions.foreach(ab => {
       if (baselineDefinitionMap.contains(ab.baseline.glueLine)) {
         val baselineWork = baselineDefinitionMap.get(ab.baseline.glueLine)
@@ -50,6 +60,17 @@ object ExperimentEngineBuilder {
         println(String.format("Cannot find baseline with glueLine \"%s\" as definition", ab.baseline.glueLine))
       }
 
+    })
+  }
+
+  private def planAssumptions(experiment: Experiment): Unit = {
+    experiment.assumptions.foreach(ab => {
+      if (assumeDefinitionMap.contains(ab.assumption.glueLine)) {
+        val assumptionWork = assumeDefinitionMap.get(ab.assumption.glueLine)
+        system.scheduler.scheduleOnce(60 seconds) {
+          assumptionWork.get()
+        }
+      }
     })
   }
 

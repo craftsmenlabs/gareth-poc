@@ -12,3 +12,9 @@ libraryDependencies += "org.scala-lang.modules" %% "scala-parser-combinators" % 
 
 libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value
 
+libraryDependencies ++= {
+  val akkaV = "2.3.9"
+  Seq(
+    "com.typesafe.akka" %% "akka-actor" % akkaV
+  )
+}

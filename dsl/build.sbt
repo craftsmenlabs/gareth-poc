@@ -11,6 +11,6 @@ lazy val api = project.settings(commonSettings: _*)
 
 lazy val core = project.dependsOn(api).settings(commonSettings: _*)
 
-lazy val web = project.dependsOn(core).settings(commonSettings: _*)
+lazy val web = project.dependsOn(core, examples).settings(commonSettings: _*)
 
-lazy val examples = project.dependsOn(api).settings(commonSettings: _*)
+lazy val examples = project.dependsOn(core).settings(commonSettings: _*)

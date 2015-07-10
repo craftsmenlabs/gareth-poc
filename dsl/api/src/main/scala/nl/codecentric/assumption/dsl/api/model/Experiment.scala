@@ -6,7 +6,10 @@ case class DescriptionBlock(description: String)
 
 abstract class AssumptionPart(glueLine: String)
 
-case class AssumptionBlock(baseline: Baseline, assumption: Assumption, time: Time)
+case class AssumptionBlock(baseline: Baseline, assumption: Assumption, time: Time) {
+  var baselineTime: Option[Long] = None
+  var assumptionTime: Option[Long] = None
+}
 
 case class Assumption(glueLine: String) extends AssumptionPart(glueLine)
 
