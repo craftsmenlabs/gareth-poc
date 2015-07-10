@@ -22,6 +22,7 @@ trait ExperimentService extends HttpService {
 
   private def init: Unit = {
     ExperimentEngineBuilder.loadExperiment ("example.experiment")
+    ExperimentEngineBuilder.loadExperiment ("example2.experiment")
     ExperimentEngineBuilder.loadDefinition("ExampleDefinition")
     ExperimentEngineBuilder.runExperiment("Example experiment")
   }
