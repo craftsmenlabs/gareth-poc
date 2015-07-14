@@ -1,23 +1,25 @@
 var express = require('express')
     , http = require('http')
-    , winston = require('winston');
+    , winston = require('winston')
+    , bodyParser = require('body-parser');
+;
 
 var expressApp = express();
 
 var i = 0;
 
-expressApp.use(express.static(__dirname + '/public'));
-expressApp.get("/login", function (req, response) {
-    var statusCodes = [200, 403];
-    var statusCode = statusCodes[i];
-    if (i >= statusCodes.length-1) {
-        i = 0;
-    } else {
-        i++
-    }
-    winston.info(statusCode);
-    response.status(statusCode).end();
+// parse application/x-www-form-urlencoded
+expressApp.use(bodyParser.urlencoded({extended: false}))
 
+// parse application/json
+expressApp.use(bodyParser.json())
+expressApp.use(express.static(__dirname + '/public'));
+
+expressApp.post("/signup", function (request, response) {
+    var emailAddress = request.body.emailAddress;
+    console.log(emailAddress)
+    response.statusCode = 202; // Accepted
+    response.send();
 });
 
 var listeningPort = 8888;

@@ -1,8 +1,6 @@
 import java.io.{File, FileNotFoundException}
 
-import nl.codecentric.assumption.dsl.core.ExperimentEngineBuilder
 import nl.codecentric.assumption.dsl.core.definition.BaseDefinition
-import nl.codecentric.assumption.dsl.core.parser.ExperimentParser._
 
 import scala.io.Source
 import scala.reflect.internal.util.ScalaClassLoader.URLClassLoader
@@ -25,7 +23,7 @@ class ExampleDefinition extends BaseDefinition {
     if (okPercentage > 70) {
       println("Experiment OK")
     } else {
-      println("Experiment Pass")
+      println("Experiment Fail")
     }
 
   })
