@@ -1,28 +1,39 @@
 var express = require('express')
     , http = require('http')
     , winston = require('winston')
-    , bodyParser = require('body-parser');
+    , bodyParser = require('body-parser')
+    , registrationDao = require('./registrationdao.js');
 ;
 
-var expressApp = express();
+module.exports = {
 
-var i = 0;
+    getRestApplication: function () {
+        var expressApp = express();
 
-// parse application/x-www-form-urlencoded
-expressApp.use(bodyParser.urlencoded({extended: false}))
+        var i = 0;
 
-// parse application/json
-expressApp.use(bodyParser.json())
-expressApp.use(express.static(__dirname + '/public'));
+        expressApp.use(bodyParser.urlencoded({extended: false}))
 
-expressApp.post("/signup", function (request, response) {
-    var emailAddress = request.body.emailAddress;
-    console.log(emailAddress)
-    response.statusCode = 202; // Accepted
-    response.send();
-});
+        expressApp.use(bodyParser.json())
+        expressApp.use(express.static(__dirname + '/public'));
 
-var listeningPort = 8888;
-http.createServer(expressApp).listen(listeningPort);
+        expressApp.post("/signup", function (request, response) {
+            var emailAddress = request.body.emailAddress;
+            console.log(emailAddress)
+            registrationDao.alreadyRegistered(emailAddress
+                , function () {
+                    response.statusCode = 202; // Accepted
+                    response.send();
+                }
+                , function () {
+                    response.statusCode = 400; // Bad request
+                    response.send();
+                });
 
-console.log('Server is listening on port ' + listeningPort);
+        });
+
+        var listeningPort = 8888;
+        http.createServer(expressApp).listen(listeningPort);
+    }
+}
+

@@ -2,19 +2,21 @@
   "name": "webserver-js",
   "version": "0.1.0",
   "author": "Hylke Stapersma",
-  "description": "A simple web server",
-  "main": "server.js",
+  "description": "Lean startup site for ",
+  "main": "app.js",
   "engines": {
     "iojs": ">= 1.0.3"
   },
   "dependencies": {
     "express": ">=4.0.0",
     "winston": ">=1.0.1",
-    "body-parser": ">=1.13.2"
+    "body-parser": ">=1.13.2",
+    "mysql": ">=0.4.2"
   },
   "devDependencies": {
   },
   "scripts": {
+    "start": "node app.js"
   },
   "repository": "",
   "keywords": [
