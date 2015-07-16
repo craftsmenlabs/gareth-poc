@@ -1,0 +1,19 @@
+web:
+  build: ../demo-site/.
+  hostname: demo-site
+  ports:
+    - "8888:8888"
+  links:
+    - database
+  env_file:
+      - development.env
+
+
+database:
+  build: ../database/.
+  volumes:
+   - "/var/lib/mysql/demo-site:/var/lib/mysql"
+  ports:
+    - "3306:3306"
+  env_file:
+    - development.env

@@ -1,11 +1,15 @@
 var mysql = require('mysql')
 
-var databaseConnection = mysql.createConnection({
-    host: '',
-    user: '',
-    password: '',
-    database: ''
-});
+var databaseConnection = mysql.createConnection(getConnection());
+
+function getConnection() {
+    return {
+        host: process.env.DATABASE_PORT_3306_TCP_ADDR || "localhost",
+        user: process.env.DATABASE_ENV_MYSQL_USER || "mysql",
+        password: process.env.DATABASE_ENV_MYSQL_PASSWORD || "mysql",
+        database: process.env.DATABASE_ENV_MYSQL_DATABASE || "registration"
+    }
+}
 
 function endConnection(databaseConnection) {
     if (databaseConnection) {
