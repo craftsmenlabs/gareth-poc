@@ -1,5 +1,7 @@
 package nl.codecentric.assumption.dsl.core.definition
 
+import scala.concurrent.duration._
+
 /**
  * Created by hylke on 06/07/15.
  */
@@ -13,8 +15,6 @@ class SampleDefinition extends BaseDefinition {
     println("y")
   })
 
-  "this is time" time (() => {
-    println("z")
-  })
+  "this is time" time (60 seconds)
 
 }

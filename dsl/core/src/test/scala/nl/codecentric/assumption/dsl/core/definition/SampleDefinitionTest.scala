@@ -5,6 +5,7 @@ import nl.codecentric.assumption.dsl.core.registry.CoreDefinitionRegistry
 import org.scalatest.{FlatSpec, Matchers}
 
 import scala.collection.mutable
+import scala.concurrent.duration.FiniteDuration
 
 /**
  * Created by hylke on 06/07/15.
@@ -15,7 +16,7 @@ class SampleDefinitionTest extends FlatSpec with Matchers {
 
     val mockBaselineDefinitionMap: mutable.Map[String, () => Unit] = collection.mutable.Map[String, () => Unit]()
     val mockAssumeDefinitionMap: mutable.Map[String, () => Unit] = collection.mutable.Map[String, () => Unit]()
-    val mockTimeDefinitionMap: mutable.Map[String, () => Unit] = collection.mutable.Map[String, () => Unit]()
+    val mockTimeDefinitionMap: mutable.Map[String, FiniteDuration] = collection.mutable.Map[String, FiniteDuration]()
 
     val mockDefinitionRegistry: DefinitionRegistry = new CoreDefinitionRegistry(){
       override def assumeDefinitionMap = mockAssumeDefinitionMap;
