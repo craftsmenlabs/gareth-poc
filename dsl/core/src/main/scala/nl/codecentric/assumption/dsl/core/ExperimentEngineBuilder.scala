@@ -32,7 +32,7 @@ object ExperimentEngineBuilder {
 
   val assumeDefinitionMap: scala.collection.mutable.Map[String, () => Unit] = scala.collection.mutable.Map[String, () => Unit]()
 
-  val timeDefinitionMap: scala.collection.mutable.Map[String, () => Unit] = scala.collection.mutable.Map[String, () => Unit]()
+  val timeDefinitionMap: scala.collection.mutable.Map[String, FiniteDuration] = scala.collection.mutable.Map[String, FiniteDuration]()
 
   val experiments: mutable.MutableList[Experiment] = mutable.MutableList[Experiment]()
 
@@ -67,7 +67,7 @@ object ExperimentEngineBuilder {
     experiment.assumptions.foreach(ab => {
       if (assumeDefinitionMap.contains(ab.assumption.glueLine)) {
         val assumptionWork = assumeDefinitionMap.get(ab.assumption.glueLine)
-        system.scheduler.scheduleOnce(60 seconds) {
+        system.scheduler.scheduleOnce(timeDefinitionMap.get(ab.time.glueLine).get) {
           assumptionWork.get()
         }
       }

@@ -4,6 +4,7 @@ import nl.codecentric.assumption.dsl.core.definition.BaseDefinition
 
 import scala.io.Source
 import scala.reflect.internal.util.ScalaClassLoader.URLClassLoader
+import scala.concurrent.duration._
 
 /**
  * Created by hylke on 09/07/15.
@@ -28,9 +29,7 @@ class ExampleDefinition extends BaseDefinition {
 
   })
 
-  "Example time" time (() => {
-    println("Example time")
-  })
+  "Example time" time (60 seconds)
 
   "Example baseline2" baseline (() => {
     println("Example baseline 2 :o)")
@@ -40,9 +39,7 @@ class ExampleDefinition extends BaseDefinition {
     println("Example assume 2")
   })
 
-  "Example time2" time (() => {
-    println("Example time 2")
-  })
+  "Example time2" time  (60 seconds)
 
   def parserExperiment(fileName: String): Int = {
     val experimentLines = readFile(fileName)
