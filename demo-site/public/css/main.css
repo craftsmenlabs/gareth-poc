@@ -20,6 +20,10 @@ h1.title {
     position: absolute;
 }
 
+p.subtitle {
+    z-index: 3;
+}
+
 img, video {
     max-width: 100%;
     width: 100%;
