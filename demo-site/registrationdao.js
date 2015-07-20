@@ -1,55 +1,57 @@
 var mysql = require('mysql')
 
-var databaseConnection = mysql.createConnection(getConnection());
+var databasePool = mysql.createPool(getConnection());
+
+console.log(process.env);
 
 function getConnection() {
     return {
-        host: process.env.DATABASE_PORT_3306_TCP_ADDR || "localhost",
-        user: process.env.DATABASE_ENV_MYSQL_USER || "mysql",
-        password: process.env.DATABASE_ENV_MYSQL_PASSWORD || "mysql",
-        database: process.env.DATABASE_ENV_MYSQL_DATABASE || "registration"
+        host: process.env.DB_PORT_3306_TCP_ADDR || "localhost",
+        user: process.env.DB_ENV_MYSQL_USER || "mysql",
+        password: process.env.DB_ENV_MYSQL_PASSWORD || "mysql",
+        database: process.env.DB_ENV_MYSQL_DATABASE || "registration"
     }
 }
 
-function endConnection(databaseConnection) {
-    if (databaseConnection) {
-        databaseConnection.end(function (err) {
-            if (err) {
-                console.log(err);
-            }
-        });
-    }
-}
-
-function doQuery(databaseConnection, query, callback) {
-    if (databaseConnection) {
-        databaseConnection.connect(function (err) {
+function doQuery(databasePool, query, queryValues, callback) {
+    if (databasePool) {
+        databasePool.getConnection(function (err, connection) {
+            console.log("Doing query in connection");
             if (!err) {
-                databaseConnection.query(query, callback);
+                connection.query(query, queryValues, callback);
             } else {
                 console.log(err);
             }
+            connection.release();
         });
-        endConnection(databaseConnection);
+
     }
 }
 
 module.exports = {
 
-    alreadyRegistered: function (emailAddress, registeredCallback, notRegisteredCallback) {
-        doQuery(databaseConnection, 'select * from registration where email_address = ?', [emailAddress], function (err, rows, fields) {
-            if (rows.length === 0) {
-                notRegisteredCallback
+    alreadyRegistered: function (emailAddress, registeredCallback, notRegisteredCallback, systemExceptionCallback) {
+        doQuery(databasePool, 'select * from registrations where emailaddress = ?', [emailAddress], function (err, rows, fields) {
+            if (err) {
+                console.log("Error while checking if registristration already exist", err);
+                systemExceptionCallback();
             } else {
-                notRegisteredCallback
+                if (rows.length === 0) {
+                    notRegisteredCallback();
+                } else {
+                    registeredCallback();
+                }
             }
         });
     },
 
-    register: function (emailAddress) {
-        doQuery(databaseConnection, "insert into registration values (emailAddress) values ('?')", [emailAddress], function (err) {
-            if (!err) {
-
+    register: function (emailAddress, okCallback, systemExceptionCallback) {
+        doQuery(databasePool, "insert into registrations set ?", {"emailaddress": emailAddress}, function (err) {
+            if (err) {
+                console.log("Error while inserting registration", err);
+                systemExceptionCallback();
+            } else {
+                okCallback();
             }
         });
     }

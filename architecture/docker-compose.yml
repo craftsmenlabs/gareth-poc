@@ -4,7 +4,7 @@ web:
   ports:
     - "8888:8888"
   links:
-    - database
+    - database:db
   env_file:
       - development.env
 
@@ -27,7 +27,5 @@ database:
   hostname: database
   volumes:
    - "/var/lib/mysql/demo-site:/var/lib/mysql"
-  ports:
-    - "3306:3306"
   env_file:
     - development.env

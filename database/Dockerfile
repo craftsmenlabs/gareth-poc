@@ -1,4 +1,4 @@
-FROM mysql:5.5
+FROM mysql:5.7
 
 ADD bla.sql bla.sql
 ADD setup-database.sh setup-database.sh

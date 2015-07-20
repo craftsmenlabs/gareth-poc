@@ -5,6 +5,13 @@ var express = require('express')
     , registrationDao = require('./registrationdao.js');
 ;
 
+var systemExceptionCallback = function (response) {
+    console.log("System error");
+    response.statusCode = 500; // System exception
+    response.send();
+};
+
+
 module.exports = {
 
     getRestApplication: function () {
@@ -21,14 +28,30 @@ module.exports = {
             var emailAddress = request.body.emailAddress;
             console.log(emailAddress)
             registrationDao.alreadyRegistered(emailAddress
+
                 , function () {
-                    response.statusCode = 202; // Accepted
-                    response.send();
-                }
-                , function () {
+                    console.log("Bad request");
                     response.statusCode = 400; // Bad request
                     response.send();
-                });
+                }
+
+                , function () {
+                    console.log("OK request");
+                    registrationDao.register(emailAddress
+                        , function () {
+                            response.statusCode = 202; // Accepted
+                            response.send();
+                        }
+                        , function () {
+                            systemExceptionCallback(response)
+                        });
+
+                }
+
+                , function () {
+                    systemExceptionCallback(response)
+                }
+            );
 
         });
 

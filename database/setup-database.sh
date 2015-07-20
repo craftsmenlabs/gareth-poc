@@ -19,10 +19,9 @@ fi
 
 if [ "$1" = 'mysqld' ]; then
 	# Get config
-	DATADIR="$("$@" --verbose --help 2>/dev/null | awk '$1 == "datadir" { print $2; exit }')"
-	SOCKET=$(get_option  mysqld socket "/tmp/mysql.sock")
-	HOSTNAME=$(hostname)
-	PIDFILE=$(get_option mysqld pid-file "$DATADIR/mysqld.pid")
+	DATADIR="$("$@" --verbose --help --innodb-read-only 2>/dev/null | awk '$1 == "datadir" { print $2; exit }')"
+	SOCKET=$(get_option  mysqld socket "$DATADIR/mysql.sock")
+	PIDFILE=$(get_option mysqld pid-file "/var/run/mysqld/mysqld.pid")
 
 	if [ ! -d "$DATADIR/mysql" ]; then
 		if [ -z "$MYSQL_ROOT_PASSWORD" -a -z "$MYSQL_ALLOW_EMPTY_PASSWORD" ]; then
@@ -34,13 +33,13 @@ if [ "$1" = 'mysqld' ]; then
 		mkdir -p "$DATADIR"
 		chown -R mysql:mysql "$DATADIR"
 
-		echo 'Running mysql_install_db'
-		mysql_install_db --user=mysql --datadir="$DATADIR" --rpm --basedir=/usr/local/mysql
-		echo 'Finished mysql_install_db'
+		echo 'Initializing database'
+		mysqld --initialize-insecure=on --datadir="$DATADIR"
+		echo 'Database initialized'
 
-		mysqld --user=mysql --datadir="$DATADIR" --skip-networking --basedir=/usr/local/mysql --pid-file="$PIDFILE" &
+		mysqld --user=mysql --datadir="$DATADIR" --skip-networking &
 		for i in $(seq 30 -1 0); do
-			[ -S "$SOCKET" ] && break
+			[ -S $SOCKET ] && break
 			echo 'MySQL init process in progress...'
 			sleep 1
 		done
@@ -60,7 +59,7 @@ if [ "$1" = 'mysqld' ]; then
 			-- What's done in this file shouldn't be replicated
 			--  or products like mysql-fabric won't work
 			SET @@SESSION.SQL_LOG_BIN=0;
-			
+
 			DELETE FROM mysql.user ;
 			CREATE USER 'root'@'%' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}' ;
 			GRANT ALL ON *.* TO 'root'@'%' WITH GRANT OPTION ;

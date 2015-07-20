@@ -19,7 +19,8 @@ Vagrant.configure("2") do |config|
  config.vm.synced_folder "../dashboard/", "/external/dashboard"
 
  config.vm.define "busdevops-dev-machine" do |busdevopsdevmachine|
-   busdevopsdevmachine.vm.network "private_network", ip: "33.33.33.60"
+   busdevopsdevmachine.vm.network "forwarded_port", guest: 8888, host: 8888
+   busdevopsdevmachine.vm.network "forwarded_port", guest: 3306, host: 3306
    busdevopsdevmachine.vm.provision "puppet" do |puppet|
     puppet.manifest_file = ""
   end
