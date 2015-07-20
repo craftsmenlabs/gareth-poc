@@ -1,15 +1,22 @@
+package nl.codecentric.assumption.dsl
+
 import java.io.{File, FileNotFoundException}
 
 import nl.codecentric.assumption.dsl.core.definition.BaseDefinition
+import org.json4s._
+import org.json4s.native.JsonMethods._
 
+import scala.concurrent.duration._
 import scala.io.Source
 import scala.reflect.internal.util.ScalaClassLoader.URLClassLoader
-import scala.concurrent.duration._
+import scalaj.http.{Http, HttpResponse}
 
 /**
  * Created by hylke on 09/07/15.
  */
 class ExampleDefinition extends BaseDefinition {
+
+  implicit lazy val formats = org.json4s.DefaultFormats
 
   val logParseRegex = """\w+: (\d{3})""".r
 
@@ -38,6 +45,13 @@ class ExampleDefinition extends BaseDefinition {
   "Example assume2" assumes (() => {
     println("Example assume 2")
   })
+
+
+  def getRegistrationCount(): Integer ={
+    val response:HttpResponse[String] = Http("http://33.33.33.60:8888/count").asString
+    val json = parse(response.body);
+    (json \ "count").extract[Integer]
+  }
 
   "Example time2" time  (60 seconds)
 

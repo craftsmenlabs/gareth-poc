@@ -55,6 +55,17 @@ module.exports = {
 
         });
 
+        expressApp.get("/count", function (request, response) {
+            registrationDao.getRegistrationCount(function (count) {
+                    response.statusCode = 200;
+                    response.send(count)
+                }
+                , function () {
+                    systemExceptionCallback(response);
+                });
+
+        });
+
         var listeningPort = 8888;
         http.createServer(expressApp).listen(listeningPort);
     }

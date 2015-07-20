@@ -21,10 +21,9 @@ class ExperimentServiceActor extends Actor with ExperimentService {
 trait ExperimentService extends HttpService {
 
   private def init: Unit = {
-    ExperimentEngineBuilder.loadExperiment("example.experiment")
-    ExperimentEngineBuilder.loadExperiment("example2.experiment")
-    ExperimentEngineBuilder.loadDefinition("ExampleDefinition")
-    ExperimentEngineBuilder.runExperiment("Example experiment")
+    ExperimentEngineBuilder.loadExperiment("registration.experiment")
+    ExperimentEngineBuilder.loadDefinition("nl.codecentric.assumption.dsl.RegistrationDefinition")
+    ExperimentEngineBuilder.runExperiment("Increased registrations")
   }
 
   init

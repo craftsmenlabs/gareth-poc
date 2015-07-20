@@ -54,6 +54,19 @@ module.exports = {
                 okCallback();
             }
         });
+    },
+
+
+    getRegistrationCount: function (okCallback, systemExceptionCallback) {
+        doQuery(databasePool, "select count(*) as count from registrations", function (err, rows, fields) {
+            if (err) {
+                console.log("Count could not be determined.")
+                systemExceptionCallback();
+            } else {
+                okCallback(rows[0]);
+            }
+        });
     }
+
 
 }

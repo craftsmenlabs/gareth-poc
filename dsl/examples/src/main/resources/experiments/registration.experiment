@@ -1,0 +1,5 @@
+Experiment: Increased registrations
+
+Baseline: Get the current count of registrations
+Assumption: The amount of registrations is increased with 50
+Time: In one week
