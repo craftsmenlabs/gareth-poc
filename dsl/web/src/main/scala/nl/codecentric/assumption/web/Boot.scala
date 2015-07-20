@@ -19,6 +19,6 @@ object Boot extends App{
   // IO requires an implicit ActorSystem, and ? requires an implicit timeout
   // Bind HTTP to the specified service.
   implicit val timeout = Timeout(5.seconds)
-  IO(Http) ? Http.Bind(service, interface = "localhost", port = 9999)
+  IO(Http) ? Http.Bind(service, interface = "0.0.0.0", port = 9999)
 
 }

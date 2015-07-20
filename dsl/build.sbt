@@ -2,7 +2,8 @@
 def commonSettings: Seq[Def.Setting[_]] = Seq(
   organization := "nl.codecentric",
   version := "0.1-SNAPSHOT",
-  scalaVersion := "2.11.7"
+  scalaVersion := "2.11.7",
+  scalacOptions ++= Seq("-Xmax-classfile-name", "100")
 )
 
 lazy val root = project.in(file(".")).aggregate(api, core, web, examples).settings(commonSettings: _*)

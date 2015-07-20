@@ -21,8 +21,8 @@ class ExperimentServiceActor extends Actor with ExperimentService {
 trait ExperimentService extends HttpService {
 
   private def init: Unit = {
-    ExperimentEngineBuilder.loadExperiment ("example.experiment")
-    ExperimentEngineBuilder.loadExperiment ("example2.experiment")
+    ExperimentEngineBuilder.loadExperiment("example.experiment")
+    ExperimentEngineBuilder.loadExperiment("example2.experiment")
     ExperimentEngineBuilder.loadDefinition("ExampleDefinition")
     ExperimentEngineBuilder.runExperiment("Example experiment")
   }
@@ -32,7 +32,7 @@ trait ExperimentService extends HttpService {
 
   val experimentRoute = path("experiments") {
     get {
-      respondWithHeaders(Origin(Seq(HttpOrigin("http://localhost:9999"))), `Content-Type`(MediaTypes.`application/json`), `Access-Control-Allow-Origin`(AllOrigins)) {
+      respondWithHeaders(Origin(Seq(HttpOrigin("http://localhost:9999"), HttpOrigin("http://33.33.33.60:8765"))), `Content-Type`(MediaTypes.`application/json`), `Access-Control-Allow-Origin`(AllOrigins)) {
         complete {
           import spray.httpx.SprayJsonSupport._
           ExperimentEngineBuilder.experiments.toList
