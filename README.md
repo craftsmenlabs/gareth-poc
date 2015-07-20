@@ -43,6 +43,24 @@ Time: In one month
 In this example description above a product owner for instance describes what the functionality is expected to do in
 production.
 
+#### DSL keywords
+The following DSL keywords are available.
+
+##### Experiment:
+The title of the experiment, a meaningful text for other to understand
+
+##### Baseline:
+The **Baseline:** keyword, is part of a assumption block and describes to the first measurement you want to do at the
+beginning.
+
+##### Assumption:
+The **Assumption:** keyword, is part of a assumption block and describes the measurement you want to do after the time
+defined in the **Time:** keyword.
+
+#### Time:
+The **Time:** keyword, is part of a assumption block and describes in how much time the assumption must be validated.
+
+
 ### The definition
 The definition is actual glue code that is written by the programmers to validate the assumptions. This code can for
 example check the count of registrations in a database or check log files. There is no limit because the definitions
