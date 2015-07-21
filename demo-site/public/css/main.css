@@ -94,7 +94,6 @@ img.logo {
 
 img.leader {
     opacity: 0.7;
-    height: 30em;
 }
 
 section.explained {
@@ -142,13 +141,14 @@ div.lean-part {
 
 div.lean-part img.lean-image {
     display: block;
-    width: 30%;
+    height: 120px;
+    width: 40%;
     margin-left: auto;
     margin-right: auto;
 }
 
 section.interested {
-    background: #e3ee64;
+    background: #eee9ea;
     position: absolute;
     top: 1em;
     right: 2em;
