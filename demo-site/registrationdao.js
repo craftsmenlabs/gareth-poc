@@ -22,7 +22,7 @@ function doQuery(databasePool, query, queryValues, callback) {
             } else {
                 console.log(err);
             }
-            connection.release();
+            if(connection) connection.release();
         });
 
     }
