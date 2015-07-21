@@ -19,6 +19,12 @@ application.signup = function () {
     };
 
     var sendSignUp = function (email) {
+        var okMessage = document.getElementById("ok-message"),
+            nokMessage = document.getElementById("nok-message");
+
+        if(!okMessage.classList.contains("hidden")) okMessage.classList.add("hidden");
+        if(!nokMessage.classList.contains("hidden")) nokMessage.classList.add("hidden");
+
         marmottajax({
             url: "signup",
             method: "post",
@@ -26,9 +32,9 @@ application.signup = function () {
                 emailAddress: email
             }
         }).then(function (result) {
-            alert("OK");
+            okMessage.classList.remove("hidden")
         }).error(function (message) {
-            console.log(message);
+            nokMessage.classList.remove("hidden")
         });
     };
 
