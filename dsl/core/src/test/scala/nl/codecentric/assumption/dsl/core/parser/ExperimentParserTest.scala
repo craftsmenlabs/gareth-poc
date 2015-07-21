@@ -47,7 +47,6 @@ class ExperimentParserTest extends FlatSpec with Matchers {
 
   }
 
-
   private def validateAssumption(assumption: AssumptionBlock, assumptionGlueExpectation: String, baselineGlueExpectation: String, timeGlueExpectation: String): Unit = {
     assumption.assumption.glueLine should be(assumptionGlueExpectation)
     assumption.baseline.glueLine should be(baselineGlueExpectation)

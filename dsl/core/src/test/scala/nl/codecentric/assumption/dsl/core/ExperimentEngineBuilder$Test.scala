@@ -3,6 +3,7 @@ package nl.codecentric.assumption.dsl.core
 import java.io.File
 
 import nl.codecentric.assumption.dsl.core.ExperimentEngineBuilder
+import nl.codecentric.assumption.dsl.core.context.ExperimentExecutionContext
 import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
 
 import scala.reflect.internal.util.ScalaClassLoader.URLClassLoader
@@ -35,8 +36,15 @@ class ExperimentEngineBuilder$Test extends FlatSpec with Matchers with BeforeAnd
 
   }
 
+  "ExperimentExecutionContext list" should "contain 1 item when filtered on name" in {
+    ExperimentEngineBuilder.loadExperiment("other.experiment")
+    val list: List[ExperimentExecutionContext] = ExperimentEngineBuilder.findExperimentByName("This another experiment")
+    list should have size (1)
+  }
+
   before {
     ExperimentEngineBuilder.cleanDefinitions()
+    ExperimentEngineBuilder.cleanExperiments()
   }
 
   def loadDefinitionFromClass(fullClassName: String): Unit = {

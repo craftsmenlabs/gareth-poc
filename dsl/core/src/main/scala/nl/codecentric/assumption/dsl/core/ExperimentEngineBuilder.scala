@@ -56,6 +56,7 @@ object ExperimentEngineBuilder {
 
   def runExperiment(experimentName: String): Unit = {
     findExperimentByName(experimentName).foreach(eec => {
+      println("Running experiment", eec.experimentName)
       runBaselineForExperiments(eec.assumption.baseline.glueLine, eec)
       planAssumptions(eec.assumption.assumption.glueLine, eec.assumption.time.glueLine, eec)
     });
@@ -104,9 +105,10 @@ object ExperimentEngineBuilder {
 
   def cleanExperiments(): Unit = {
     experiments.clear()
+    experimentExecutionContexts.clear()
   }
 
-  private def findExperimentByName(experimentName: String): List[ExperimentExecutionContext] = {
+  def findExperimentByName(experimentName: String): List[ExperimentExecutionContext] = {
     experimentExecutionContexts.filter(ex => experimentName.equals(ex.experimentName)).toList
   }
 
