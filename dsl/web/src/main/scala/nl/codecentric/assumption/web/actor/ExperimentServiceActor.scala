@@ -34,7 +34,7 @@ trait ExperimentService extends HttpService {
       respondWithHeaders(Origin(Seq(HttpOrigin("http://localhost:9999"), HttpOrigin("http://33.33.33.60:8765"))), `Content-Type`(MediaTypes.`application/json`), `Access-Control-Allow-Origin`(AllOrigins)) {
         complete {
           import spray.httpx.SprayJsonSupport._
-          ExperimentEngineBuilder.experiments.toList
+          ExperimentEngineBuilder.experimentExecutionContexts.toList
         }
       }
     }

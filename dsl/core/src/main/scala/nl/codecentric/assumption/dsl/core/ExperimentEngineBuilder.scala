@@ -1,8 +1,10 @@
 package nl.codecentric.assumption.dsl.core
 
 import java.io.File
+import java.time.LocalDateTime
 
 import akka.actor.ActorSystem
+import nl.codecentric.assumption.dsl.core.context.ExperimentExecutionContext
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
 import nl.codecentric.assumption.dsl.api.model.Experiment
@@ -36,6 +38,8 @@ object ExperimentEngineBuilder {
 
   val experiments: mutable.MutableList[Experiment] = mutable.MutableList[Experiment]()
 
+  val experimentExecutionContexts: mutable.MutableList[ExperimentExecutionContext] = mutable.MutableList[ExperimentExecutionContext]()
+
   def loadDefinition(clsName: String): Any = {
     Class.forName(clsName, true, experimentClassLoader).newInstance()
   }
@@ -43,35 +47,53 @@ object ExperimentEngineBuilder {
   def loadExperiment(fileName: String): Unit = {
     val experiment = ExperimentParser.parserExperiment(fileName)
     experiments += experiment
+
+    // Create experiment execution context foreach assumption
+    experiment.assumptions.foreach(ab => {
+      experimentExecutionContexts += new ExperimentExecutionContext(experiment.experimentName, ab);
+    })
   }
 
   def runExperiment(experimentName: String): Unit = {
-    val experiment = findExperimentByName(experimentName)
-    runBaselineForExperiments(experiment)
-    planAssumptions(experiment)
+    findExperimentByName(experimentName).foreach(eec => {
+      runBaselineForExperiments(eec.assumption.baseline.glueLine, eec)
+      planAssumptions(eec.assumption.assumption.glueLine, eec.assumption.time.glueLine, eec)
+    });
+
   }
 
-  private def runBaselineForExperiments(experiment: Experiment): Unit = {
-    experiment.assumptions.foreach(ab => {
-      if (baselineDefinitionMap.contains(ab.baseline.glueLine)) {
-        val baselineWork = baselineDefinitionMap.get(ab.baseline.glueLine)
-        baselineWork.get()
-      } else {
-        println(String.format("Cannot find baseline with glueLine \"%s\" as definition", ab.baseline.glueLine))
+  private def runBaselineForExperiments(glueLine: String, experimentExecutionContext: ExperimentExecutionContext): Unit = {
+
+    experimentExecutionContext.baselineHasDefinition = baselineDefinitionMap.contains(glueLine)
+
+    if (baselineDefinitionMap.contains(glueLine)) {
+      try {
+        baselineDefinitionMap.get(glueLine).get()
+        experimentExecutionContext.baselineExecution = Option(LocalDateTime.now())
+      } catch {
+        case e: Exception => experimentExecutionContext.baselineException = Option(e)
       }
-
-    })
+    } else {
+      println(String.format("Cannot find baseline with glueLine \"%s\" as definition", glueLine))
+    }
   }
 
-  private def planAssumptions(experiment: Experiment): Unit = {
-    experiment.assumptions.foreach(ab => {
-      if (assumeDefinitionMap.contains(ab.assumption.glueLine)) {
-        val assumptionWork = assumeDefinitionMap.get(ab.assumption.glueLine)
-        system.scheduler.scheduleOnce(timeDefinitionMap.get(ab.time.glueLine).get) {
+  private def planAssumptions(assumptionGlueLine: String, timeGlueLine: String, experimentExecutionContext: ExperimentExecutionContext): Unit = {
+
+    experimentExecutionContext.assumptionHasDefinition = assumeDefinitionMap.contains(assumptionGlueLine)
+    experimentExecutionContext.timeHasDefinition = timeDefinitionMap.contains(timeGlueLine)
+
+    if (assumeDefinitionMap.contains(assumptionGlueLine) && timeDefinitionMap.contains(timeGlueLine)) {
+      val assumptionWork = assumeDefinitionMap.get(assumptionGlueLine)
+      system.scheduler.scheduleOnce(timeDefinitionMap.get(timeGlueLine).get) {
+        try {
           assumptionWork.get()
+          experimentExecutionContext.assumptionExecution = Option(LocalDateTime.now())
+        } catch {
+          case e: Exception => experimentExecutionContext.assumptionException = Option(e)
         }
       }
-    })
+    }
   }
 
   def cleanDefinitions(): Unit = {
@@ -84,8 +106,8 @@ object ExperimentEngineBuilder {
     experiments.clear()
   }
 
-  private def findExperimentByName(experimentName: String): Experiment = {
-    experiments.find(ex => experimentName.equals(ex.experimentName)).get
+  private def findExperimentByName(experimentName: String): List[ExperimentExecutionContext] = {
+    experimentExecutionContexts.filter(ex => experimentName.equals(ex.experimentName)).toList
   }
 
 

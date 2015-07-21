@@ -28,28 +28,33 @@
         <p>List of experiments</p>
 
         <div ng-repeat="experiment in experiments">
-            <h3>{{experiment.name}}</h3>
-            <table class="table" ng-repeat="assumption in experiment.assumptions">
-
-                <tr>
-                    <th>Assumption</th>
-                    <td>{{assumption.assumption}}</td>
-                    <td>Fail/pass/Running</td>
-                </tr>
+            <h3>Experiment: {{experiment.experiment_name}}</h3>
+            <table class="table">
 
                 <tr>
                     <th>Baseline</th>
-                    <td>{{assumption.baseline}}</td>
+                    <td>{{experiment.baseline}}</td>
                     <td>Fail/pass</td>
                 </tr>
 
                 <tr>
-                    <th colspan="2">Start</th>
-                    <td>15-12-2013 15:57</td>
+                    <th>Assumption</th>
+                    <td>{{experiment.assumption}}</td>
+                    <td>Fail/pass/Running</td>
+                </tr>
+
+                <tr>
+                    <th>Time</th>
+                    <td colspan="2">{{experiment.time}}</td>
+                </tr>
+
+                <tr>
+                    <th>Start</th>
+                    <td colspan="2">{{experiment.baseline_execution}}</td>
                 </tr>
                 <tr>
-                    <th colspan="2">Eind</th>
-                    <td>15-12-2013 15:57</td>
+                    <th>End</th>
+                    <td colspan="2">{{experiment.assumption_execution}}</td>
                 </tr>
 
 

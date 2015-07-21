@@ -1,19 +1,25 @@
-[
-  {
-    "name": "Reduce failed logins",
-    "assumptions": [
-      {
-        "baseline": "Failed logins are read from log",
-        "assumption": "By showing caps-log warning the failed logins are reduced with 5%",
-        "start": "15-12-2013 15:57",
-        "end": "15-12-2013 15:57"
-      },
-      {
-        "baseline": "Failed logins are read from log",
-        "assumption": "By showing password password",
-        "start": "15-12-2013 15:57",
-        "end": "15-12-2013 15:57"
-      }
-    ]
-  }
-]
+[{
+  "experiment_name": "Increased registrations",
+  "assumption_has_exception": false,
+  "baseline": "Get the current count of registrations",
+  "assumption_has_definition": true,
+  "baseline_has_definition": true,
+  "assumption_execution": "",
+  "assumption": "The amount of registrations is increased with 50",
+  "baseline_has_exception": true,
+  "time": "In one week",
+  "time_has_definition": true,
+  "baseline_execution": ""
+}, {
+  "experiment_name": "Increased registrations",
+  "assumption_has_exception": false,
+  "baseline": "Get the current count of registrations",
+  "assumption_has_definition": false,
+  "baseline_has_definition": true,
+  "assumption_execution": "",
+  "assumption": "The amount of registrations is increased with 200",
+  "baseline_has_exception": true,
+  "time": "In one month",
+  "time_has_definition": false,
+  "baseline_execution": ""
+}]
