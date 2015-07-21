@@ -53,7 +53,7 @@ input, textarea {
     height: 2.2rem;
     margin-bottom: 0.5em;
     padding: 0.2em;
-    font-size: 1em;
+    font-size: 0.8em;
 }
 
 label {
@@ -154,9 +154,10 @@ section.interested {
     right: 2em;
     z-index: 2;
     max-width: 30%;
-    opacity: 0.95;
-    padding: 2em;
+    opacity: 0.9;
+    padding: 1em;
     border-radius: 0.5em;
+    box-shadow: 0px 20px 31px -7px rgba(0,0,0,0.75);
 }
 
 .hidden {
