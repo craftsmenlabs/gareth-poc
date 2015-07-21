@@ -7,7 +7,7 @@ body {
     padding: 0;
     border-top: 1px solid rgba(232, 229, 224, 0.1);
     border-bottom: 1px solid rgba(232, 229, 224, 0.1);
-    font-family: 'Indie Flower';
+    font-family: 'Raleway', sans-serif;
 }
 
 h1, h2, h3 {
@@ -21,7 +21,9 @@ h1.title {
 }
 
 p.subtitle {
-    z-index: 3;
+    margin: 0.1em;
+    font-style: oblique;
+
 }
 
 img, video {
@@ -86,6 +88,12 @@ button:active {
     top: 1px;
 }
 
+img.logo {
+    width: 50%;
+    margin-top: 1em;
+    margin: 0.1em;
+}
+
 img.leader {
     opacity: 0.7;
     height: 30em;
@@ -93,7 +101,6 @@ img.leader {
 
 section.explained {
     padding: 1em;
-    background: linear-gradient(#93a082, #f5ffef);
     z-index: 3;
     border-top: 1px solid rgba(232, 229, 224, 0.1);
     border-bottom: 1px solid rgba(232, 229, 224, 0.1);
@@ -135,10 +142,17 @@ div.lean-part {
     box-sizing: border-box;
 }
 
+div.lean-part img.lean-image {
+    display: block;
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 section.interested {
-    background: #eee6ed;
+    background: #ceee48;
     position: absolute;
-    top: 5em;
+    top: 1em;
     right: 2em;
     z-index: 2;
     max-width: 30%;
