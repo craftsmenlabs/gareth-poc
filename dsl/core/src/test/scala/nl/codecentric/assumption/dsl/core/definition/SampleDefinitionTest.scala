@@ -16,12 +16,16 @@ class SampleDefinitionTest extends FlatSpec with Matchers {
 
     val mockBaselineDefinitionMap: mutable.Map[String, () => Unit] = collection.mutable.Map[String, () => Unit]()
     val mockAssumeDefinitionMap: mutable.Map[String, () => Unit] = collection.mutable.Map[String, () => Unit]()
+    val mockSuccessDefinitionMap: mutable.Map[String, () => Unit] = collection.mutable.Map[String, () => Unit]()
+    val mockFailureDefinitionMap: mutable.Map[String, () => Unit] = collection.mutable.Map[String, () => Unit]()
     val mockTimeDefinitionMap: mutable.Map[String, FiniteDuration] = collection.mutable.Map[String, FiniteDuration]()
 
     val mockDefinitionRegistry: DefinitionRegistry = new CoreDefinitionRegistry(){
       override def assumeDefinitionMap = mockAssumeDefinitionMap;
       override def baselineDefinitionMap = mockBaselineDefinitionMap;
       override def timeDefinitionMap = mockTimeDefinitionMap;
+      override def successDefinitionMap = mockSuccessDefinitionMap;
+      override def failureDefinitionMap = mockFailureDefinitionMap;
     }
 
     new SampleDefinition {
@@ -37,6 +41,12 @@ class SampleDefinitionTest extends FlatSpec with Matchers {
 
     mockTimeDefinitionMap should have size (1)
     mockTimeDefinitionMap should contain key ("this is time")
+
+    mockSuccessDefinitionMap should have size (1)
+    mockSuccessDefinitionMap should contain key ("this is success")
+
+    mockFailureDefinitionMap should have size (1)
+    mockFailureDefinitionMap should contain key ("this is failure")
   }
 
 }

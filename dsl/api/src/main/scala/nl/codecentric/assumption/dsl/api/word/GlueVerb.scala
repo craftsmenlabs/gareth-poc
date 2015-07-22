@@ -25,6 +25,14 @@ trait GlueVerb {
     def time(block: FiniteDuration) = {
       definitionRegistry.registerTime(leftSide, block)
     }
+
+    def success(block: () => Unit) = {
+      definitionRegistry.registerSuccess(leftSide, block)
+    }
+
+    def failure(block: () => Unit) = {
+      definitionRegistry.registerFailure(leftSide, block)
+    }
   }
 
   implicit def convertTo(o: String): GlueVerbWrapper =

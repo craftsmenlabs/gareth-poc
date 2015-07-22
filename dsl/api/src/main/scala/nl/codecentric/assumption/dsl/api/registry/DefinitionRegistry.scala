@@ -11,5 +11,9 @@ abstract class DefinitionRegistry {
 
   def registerAssumption(leftSide: String, block: () => Unit)
 
+  def registerSuccess(leftSide: String, block: () => Unit)
+
+  def registerFailure(leftSide: String, block: () => Unit)
+
   def registerTime(leftSide: String, time: FiniteDuration)
 }

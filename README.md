@@ -39,6 +39,12 @@ Time: In one week
 Baseline: The current amount of registrations is 200
 Assumption: The amount of registrations is increased with 300
 Time: In one month
+Failure: Send a e-mail
+
+Baseline: The current amount of registrations is 200
+Assumption: The amount of registrations is increased with 3000
+Time: In one year
+Success: Sent cake to developers
 ```
 In this example description above a product owner for instance describes what the functionality is expected to do in
 production.
@@ -60,6 +66,11 @@ defined in the **Time:** keyword.
 ##### Time:
 The **Time:** keyword, is part of a assumption block and describes in how much time the assumption must be validated.
 
+##### Success: (optional)
+The optional **Success:** keyword, is part of the assumption block and describes to code when the assumption is met.
+
+##### Failure: (optional)
+The optional **Failure:** keyword, is part of the assumption block and describes to code when the assumption is not met.
 
 ### The definition
 The definition is actual glue code that is written by the programmers to validate the assumptions. This code can for

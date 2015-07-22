@@ -15,6 +15,14 @@ class SampleDefinition extends BaseDefinition {
     println("y")
   })
 
+  "this is failure" failure (() => {
+    println("y")
+  })
+
+  "this is success" success (() => {
+    println("y")
+  })
+
   "this is time" time (60 seconds)
 
 }

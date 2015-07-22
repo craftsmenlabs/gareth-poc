@@ -20,18 +20,16 @@ object ExperimentTextParser extends RegexParsers with Positional {
 
   override val skipWhitespace = false;
 
-  def assumptionBlockStart = keyword_baseline | keyword_assumption | keyword_time
-
 
   def experimentOutlineBlock: Parser[Experiment] = experimentBlock ~ rep1(assumptionOutlineBlock) <~ (eoi | keyword_experiment) ^^ { case a =>
     Experiment(a._1, a._2)
   }
 
   def assumptionOutlineBlock: Parser[AssumptionBlock] = assumptionOutlineParts ^^ {
-    case b ~ a ~ t => AssumptionBlock(b, a, t)
+    case b ~ a ~ t ~ s ~ f => AssumptionBlock(b, a, t, s, f)
   }
 
-  def assumptionOutlineParts = baselineBlock ~ assumptionBlock ~ timeBlock
+  def assumptionOutlineParts = baselineBlock ~ assumptionBlock ~ timeBlock ~ opt(successBlock) ~ opt(failureBlock)
 
   def experimentBlock: Parser[String] = keyword_experiment ~> experiment_name <~ eol ^^ {
     case en => en.trim
@@ -49,6 +47,14 @@ object ExperimentTextParser extends RegexParsers with Positional {
     case propertyValue => Baseline(propertyValue.trim)
   }
 
+  def successBlock: Parser[nl.codecentric.assumption.dsl.api.model.Success] = keyword_success ~> experiment_name <~ (eol | eoi) ^^ {
+    case propertyValue => nl.codecentric.assumption.dsl.api.model.Success(propertyValue.trim)
+  }
+
+  def failureBlock: Parser[nl.codecentric.assumption.dsl.api.model.Failure] = keyword_failure ~> experiment_name <~ (eol | eoi) ^^ {
+    case propertyValue => nl.codecentric.assumption.dsl.api.model.Failure(propertyValue.trim)
+  }
+
 
   def keyword_experiment: Parser[String] = "^\\s*Experiment:".r ^^ {
     _.toString
@@ -63,6 +69,14 @@ object ExperimentTextParser extends RegexParsers with Positional {
   }
 
   def keyword_time: Parser[String] = "^\\s*Time:".r ^^ {
+    _.toString
+  }
+
+  def keyword_failure: Parser[String] = "^\\s*Failure:".r ^^ {
+    _.toString
+  }
+
+  def keyword_success: Parser[String] = "^\\s*Success:".r ^^ {
     _.toString
   }
 

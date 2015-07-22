@@ -14,6 +14,10 @@ class CoreDefinitionRegistry extends DefinitionRegistry {
 
   def assumeDefinitionMap: scala.collection.mutable.Map[String, () => Unit] = ExperimentEngineBuilder.assumeDefinitionMap
 
+  def successDefinitionMap: scala.collection.mutable.Map[String, () => Unit] = ExperimentEngineBuilder.successDefinitionMap
+
+  def failureDefinitionMap: scala.collection.mutable.Map[String, () => Unit] = ExperimentEngineBuilder.failureDefinitionMap
+
   def timeDefinitionMap: scala.collection.mutable.Map[String, FiniteDuration] = ExperimentEngineBuilder.timeDefinitionMap
 
   override def registerBaseline(description: String, block: () => Unit): Unit = {
@@ -22,6 +26,14 @@ class CoreDefinitionRegistry extends DefinitionRegistry {
 
   override def registerAssumption(description: String, block: () => Unit): Unit = {
     register(assumeDefinitionMap, description, block)
+  }
+
+  override def registerSuccess(leftSide: String, block: () => Unit): Unit = {
+    register(successDefinitionMap, leftSide, block)
+  }
+
+  override def registerFailure(leftSide: String, block: () => Unit): Unit = {
+    register(failureDefinitionMap, leftSide, block)
   }
 
   override def registerTime(description: String, finiteDuration: FiniteDuration): Unit = {

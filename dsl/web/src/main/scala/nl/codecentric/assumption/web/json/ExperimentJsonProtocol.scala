@@ -3,7 +3,7 @@ package nl.codecentric.assumption.web.json
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-import nl.codecentric.assumption.dsl.api.model.{AssumptionBlock, Experiment}
+import nl.codecentric.assumption.dsl.api.model.{Success, AssumptionBlock, Experiment, Failure}
 import nl.codecentric.assumption.dsl.core.context.ExperimentExecutionContext
 import spray.json._
 
@@ -47,6 +47,8 @@ object ExperimentJsonProtocol extends DefaultJsonProtocol {
       "baseline" -> JsString(experimentExecutionContext.assumption.baseline.glueLine),
       "assumption" -> JsString(experimentExecutionContext.assumption.assumption.glueLine),
       "time" -> JsString(experimentExecutionContext.assumption.time.glueLine),
+      "Success" -> JsString(experimentExecutionContext.assumption.success.getOrElse(Success("")).glueLine),
+      "Failure" -> JsString(experimentExecutionContext.assumption.failure.getOrElse(Failure("")).glueLine),
       "baseline_execution" -> JsString(getReadableTimeRepresentation(experimentExecutionContext.baselineExecution)),
       "assumption_execution" -> JsString(getReadableTimeRepresentation(experimentExecutionContext.assumptionExecution)),
       "baseline_has_definition" -> JsBoolean(experimentExecutionContext.baselineHasDefinition),

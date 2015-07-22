@@ -34,6 +34,10 @@ object ExperimentEngineBuilder {
 
   val assumeDefinitionMap: scala.collection.mutable.Map[String, () => Unit] = scala.collection.mutable.Map[String, () => Unit]()
 
+  val successDefinitionMap: scala.collection.mutable.Map[String, () => Unit] = scala.collection.mutable.Map[String, () => Unit]()
+
+  val failureDefinitionMap: scala.collection.mutable.Map[String, () => Unit] = scala.collection.mutable.Map[String, () => Unit]()
+
   val timeDefinitionMap: scala.collection.mutable.Map[String, FiniteDuration] = scala.collection.mutable.Map[String, FiniteDuration]()
 
   val experiments: mutable.MutableList[Experiment] = mutable.MutableList[Experiment]()
