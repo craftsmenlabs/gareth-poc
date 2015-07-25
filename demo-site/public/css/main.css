@@ -10,8 +10,35 @@ body {
     font-family: 'Raleway', sans-serif;
 }
 
+ul{
+  padding:0;
+}
+li{
+  padding:0 0 0.5em 3em;
+  margin-bottom:0.2em;
+  text-indent:0.4em;
+  font-weight:bold;
+  list-style:none;
+  background-repeat:no-repeat;
+  background-image:url("../images/check.png");
+  font-size: 1em;
+  line-height: 2em;
+}
+
+ul {
+  list-style-image: url("../images/check.png");
+  padding-top: 2em;
+  font-size: 1em;
+  line-height: 2em;
+}
+
 h1, h2, h3 {
     text-align: center;
+    font-size: 1.4rem;
+}
+
+h4 {
+    text-align: left;
     font-size: 1.4rem;
 }
 
@@ -139,12 +166,50 @@ div.lean-part {
     box-sizing: border-box;
 }
 
+div.txt-part-wide {
+    width: 60%;
+    display: block;
+    float: left;
+    min-height: 3rem;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+}
+div.txt-part-wide-left {
+    width: 60%;
+    display: block;
+    float: left;
+    min-height: 3rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 3em;
+    box-sizing: border-box;
+}
+
 div.lean-part img.lean-image {
     display: block;
-    height: 120px;
+    height: 40%;
     width: 40%;
     margin-left: auto;
     margin-right: auto;
+}
+
+div.lean-part img.medium-image {
+    display: block;
+    height: 75%;
+    width: 75%;
+    padding-top: 4em;
+    padding-bottom: 4em;
+    margin-left: auto;
+    margin-right: auto;
+}
+img.footer-image {
+        display: block;
+        height: 75%;
+        width: 75%;
+        align: right;
+        margin-left: auto;
+        margin-right: auto;
 }
 
 section.interested {
@@ -164,7 +229,20 @@ section.interested {
     display: none;
 }
 
+hr.thin {
+height: 1px;
+border: 0;
+color: #e1e1e1;
+background-color: #e1e1e1;
+width: 85%;
+}
+
 p.signup-message {
 }
 
-
+.wrap {
+  width: 100%;
+  height: 150px;
+  display: block;
+  color: #333E49;
+}
