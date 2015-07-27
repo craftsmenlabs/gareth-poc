@@ -2,6 +2,7 @@ package nl.codecentric.assumption.dsl.core.registry
 
 import nl.codecentric.assumption.dsl.core.ExperimentEngineBuilder
 import nl.codecentric.assumption.dsl.api.registry.DefinitionRegistry
+import nl.codecentric.assumption.dsl.core.context.ExperimentExecutionContext
 
 import scala.concurrent.duration.FiniteDuration
 

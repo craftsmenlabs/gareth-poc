@@ -101,6 +101,10 @@ object ExperimentEngineBuilder {
     }
   }
 
+  implicit def convertTo(block: (() => Unit, ExperimentExecutionContext)): Unit = {
+
+  }
+
   def cleanDefinitions(): Unit = {
     assumeDefinitionMap.clear()
     baselineDefinitionMap.clear()
