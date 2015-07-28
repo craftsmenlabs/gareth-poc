@@ -17,6 +17,7 @@ Vagrant.configure("2") do |config|
  config.vm.synced_folder "../database/", "/external/database"
  config.vm.synced_folder "../dsl/", "/external/dsl"
  config.vm.synced_folder "../dashboard/", "/external/dashboard"
+ config.vm.synced_folder "../core-os/", "/external/core-os"
 
  config.vm.define "busdevops-dev-machine" do |busdevopsdevmachine|
    busdevopsdevmachine.vm.network "private_network", ip: "33.33.33.60"

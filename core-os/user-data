@@ -5,13 +5,13 @@ coreos:
   etcd:
     addr: $public_ipv4:4001
     peer-addr: $public_ipv4:7001
-    discovery: https://discovery.etcd.io/2377a2232c43526268070521c76eacbc
+    discovery: https://discovery.etcd.io/955c6153241a4fa15e6c4ff2b4a19884
   etcd2:
     advertise-client-urls: http://$public_ipv4:2379
     initial-advertise-peer-urls: http://$private_ipv4:2380
     listen-client-urls: http://0.0.0.0:2379,http://0.0.0.0:4001
     listen-peer-urls: http://$private_ipv4:2380,http://$private_ipv4:7001
-    discovery: https://discovery.etcd.io/2377a2232c43526268070521c76eacbc
+    discovery: https://discovery.etcd.io/955c6153241a4fa15e6c4ff2b4a19884
   fleet:
     public-ip: $public_ipv4
   flannel:
@@ -41,6 +41,9 @@ coreos:
       ExecStartPre=/usr/bin/docker pull amazon/amazon-ecs-agent
       ExecStart=/usr/bin/docker run --name ecs-agent --env=ECS_CLUSTER=${ECS_CLUSTER} --env=ECS_LOGLEVEL=${ECS_LOGLEVEL} --env=ECS_CHECKPOINT=${ECS_CHECKPOINT} --publish=127.0.0.1:51678:51678 --volume=/var/run/docker.sock:/var/run/docker.sock --volume=/var/lib/aws/ecs:/data amazon/amazon-ecs-agent
       ExecStop=/usr/bin/docker stop ecs-agent
+
+      [X-Fleet]
+      Global=true
   - name: docker-tcp.socket
     command: start
     enable: true
