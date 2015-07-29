@@ -17,7 +17,6 @@ li{
   padding:0 0 0.5em 3em;
   margin-bottom:0.2em;
   text-indent:0.4em;
-  font-weight:bold;
   list-style:none;
   background-repeat:no-repeat;
   background-image:url("../images/check.png");
@@ -28,8 +27,6 @@ li{
 ul {
   list-style-image: url("../images/check.png");
   padding-top: 2em;
-  font-size: 1em;
-  line-height: 2em;
 }
 
 h1, h2, h3 {
@@ -51,6 +48,10 @@ p.subtitle {
     margin: 0.1em;
     font-weight: 300;
     font-size: 1.2em;
+}
+strong {
+    font-weight: 500;
+    color: #dc1414;
 }
 
 img, video {
@@ -155,6 +156,12 @@ div.container {
 
 div.lean-explained {
     color: #333333;
+}
+
+div.lean-explained-grey {
+  background-color: #2B373A;
+  color: #BFBFBF;
+      padding-left: 3em;
 }
 
 div.lean-part {
