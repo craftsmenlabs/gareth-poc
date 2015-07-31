@@ -318,6 +318,26 @@
         ]
       }
     },
+
+    "GarethCraftsmenlabsDNS" : {
+      "Type" : "AWS::Route53::RecordSetGroup",
+      "Properties" : {
+        "HostedZoneName" : "craftsmenlabs.org.",
+        "Comment" : "Zone apex alias targeted to myELB LoadBalancer.",
+        "RecordSets" : [
+          {
+            "Name" : "gareth.craftsmenlabs.org.",
+            "Type" : "A",
+            "AliasTarget" : {
+              "HostedZoneId" : { "Fn::GetAtt" : ["GarethLoadBalancer", "CanonicalHostedZoneNameID"] },
+              "DNSName" : { "Fn::GetAtt" : ["GarethLoadBalancer","CanonicalHostedZoneName"] }
+            }
+          }
+        ]
+      }
+    },
+
+
     "CoreOSServerAutoScale": {
       "Type": "AWS::AutoScaling::AutoScalingGroup",
       "Properties": {
@@ -447,6 +467,7 @@
                 "\n",
                 "       ExecStartPre=-/usr/bin/docker kill demo-site\n",
                 "       ExecStartPre=-/usr/bin/docker rm demo-site\n",
+                "       ExecStartPre=-/usr/bin/docker rmi craftsmenlabs/website\n",
                 "       ExecStart=/usr/bin/docker run --rm --name demo-site --env=DB_PORT_3306_TCP_ADDR=${DB_PORT_3306_TCP_ADDR} --env=DB_ENV_MYSQL_DATABASE=${DB_ENV_MYSQL_DATABASE} --env=DB_ENV_MYSQL_USER=${DB_ENV_MYSQL_USER} --env=DB_ENV_MYSQL_PASSWORD=${DB_ENV_MYSQL_PASSWORD}  -p 8888:8888 craftsmenlabs/website\n",
                 "       ExecStop=/usr/bin/docker kill demo-site\n",
                 "       [X-Fleet]\n",
@@ -462,6 +483,7 @@
                 "       [Service]\n",
                 "       ExecStartPre=-/usr/bin/docker kill dsl-site\n",
                 "       ExecStartPre=-/usr/bin/docker rm dsl-site\n",
+                "       ExecStartPre=-/usr/bin/docker rmi craftsmenlabs/dsl\n",
                 "       ExecStart=/usr/bin/docker run --rm --name dsl-site -p 9999:9999 craftsmenlabs/dsl\n",
                 "       ExecStop=/usr/bin/docker kill dsl-site\n",
                 "       [X-Fleet]\n",
@@ -479,6 +501,7 @@
                 { "Fn::GetAtt" : ["GarethDslLoadBalancer","CanonicalHostedZoneName"] },
                 "       ExecStartPre=-/usr/bin/docker kill dsl-dashboard-site\n",
                 "       ExecStartPre=-/usr/bin/docker rm dsl-dashboard-site\n",
+                "       ExecStartPre=-/usr/bin/docker rmi craftsmenlabs/dsldashboard\n",
                 "       ExecStart=/usr/bin/docker run --rm --name dsl-dashboard-site --env=DASHBOARD_CONFIG=amazon.js --env=DSL_LB_URL=${DSL_LB_URL} -p 8765:8765 craftsmenlabs/dsldashboard\n",
                 "       ExecStop=/usr/bin/docker kill dsl-dashboard-site\n",
                 "       [X-Fleet]\n",
