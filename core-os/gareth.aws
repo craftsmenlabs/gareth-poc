@@ -332,6 +332,22 @@
               "HostedZoneId" : { "Fn::GetAtt" : ["GarethLoadBalancer", "CanonicalHostedZoneNameID"] },
               "DNSName" : { "Fn::GetAtt" : ["GarethLoadBalancer","CanonicalHostedZoneName"] }
             }
+          },
+          {
+            "Name" : "dsl.gareth.craftsmenlabs.org.",
+            "Type" : "A",
+            "AliasTarget" : {
+              "HostedZoneId" : { "Fn::GetAtt" : ["GarethDslLoadBalancer", "CanonicalHostedZoneNameID"] },
+              "DNSName" : { "Fn::GetAtt" : ["GarethDslLoadBalancer","CanonicalHostedZoneName"] }
+            }
+          },
+          {
+            "Name" : "dashboard.gareth.craftsmenlabs.org.",
+            "Type" : "A",
+            "AliasTarget" : {
+              "HostedZoneId" : { "Fn::GetAtt" : ["GarethDslDashboardLoadBalancer", "CanonicalHostedZoneNameID"] },
+              "DNSName" : { "Fn::GetAtt" : ["GarethDslDashboardLoadBalancer","CanonicalHostedZoneName"] }
+            }
           }
         ]
       }
