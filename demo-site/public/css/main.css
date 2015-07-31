@@ -94,7 +94,7 @@ input, textarea {
     border: 1px solid #aaa;
     box-shadow: 0px 0px 3px #ccc, 0 10px 15px #eee inset;
     border-radius: 2px;
-    width: 20rem;
+    width: 90%;
     height: 2.2rem;
     margin-bottom: 0.5em;
     padding: 0.2em;
@@ -167,7 +167,7 @@ div.row::after {
 }
 
 div.container {
-    width: 100%;
+    width: 90%;
     margin: 0px auto;
 }
 
@@ -179,12 +179,14 @@ div.lean-explained-grey {
     background-color: #2B373A;
     color: #BFBFBF;
     padding-left: 3em;
+    min-width: 400px;
 }
 
 div.lean-part {
     width: 31%;
     display: block;
     float: left;
+    min-width: 320px;
     min-height: 3rem;
     margin: 0.4em;
     box-sizing: border-box;
@@ -196,6 +198,7 @@ div.lean-part-small {
     display: block;
     float: left;
     min-height: 3rem;
+    min-width: 320px;
     margin: 0.4em;
     box-sizing: border-box;
 }
@@ -207,6 +210,7 @@ div.lean-part-white {
     padding: 2em;
     display: block;
     float: left;
+    min-width: 320px;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 2em;
@@ -239,6 +243,7 @@ div.txt-part-wide-intro {
     display: block;
     float: left;
     min-height: 3rem;
+    min-width: 320px;
     margin-left: auto;
     margin-right: auto;
     padding: 3em;
@@ -286,7 +291,8 @@ section.interested {
     top: 1em;
     right: 2em;
     z-index: 2;
-    max-width: 30%;
+    width: 30%;
+    min-width: 200px;
     opacity: 0.9;
     padding: 1em;
     border-radius: 0.5em;
