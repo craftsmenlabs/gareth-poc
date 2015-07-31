@@ -81,15 +81,15 @@
 
                 <p>
                 <ul>
-                    <li>The first round of validation is between the Product Owner, his or her stakeholders and is
+                    <li  class="plus">The first round of validation is between the Product Owner, his or her stakeholders and is
                         administered in the backlog,
                         story maps and product canvasses.
                     </li>
-                    <li>Validations in this round are: Is the vision of the product still right? Are the right persona’s
+                    <li class="plus">Validations in this round are: Is the vision of the product still right? Are the right persona’s
                         defined?
                         Is the impact of the software defined? Are the right activities defined? Are the goals clear?...
                     </li>
-                    <li>The assumptions we make in this stage are things like: the performance of feature z will be 25%
+                    <li class="plus">The assumptions we make in this stage are things like: the performance of feature z will be 25%
                         better, feature y will decrease the usage of certain functionality by at least 50% over the next
                         3 months,
                         Feature x will be in our top 5 of highest value business transactions, after implementing
@@ -111,19 +111,15 @@
 
                 <p>
                 <ul>
-                    <li>The second round of validation is about the building, testing and accepting.
+                    <li class="plus">The second round of validation is about the building, testing and accepting.
                         Features are being designed, build and tested. After that it is up to the Product Owner to
                         accept
                         this functionality.
                     </li>
-                    <li>Validations in this round are things like: Is the behavior of the software as intended? Do all
+                    <li class="plus">Validations in this round are things like: Is the behavior of the software as intended? Do all
                         unit tests pass?
                         Does the continuous integration builds pass? Does the software look the way the Product Owner
                         intended it?...
-                    </li>
-                    <li>The extra assumptions we make in this stage are about how the chosen solution will have an
-                        effect on how
-                        this feature is going to be used.
                     </li>
                 </ul>
                 </p>
@@ -145,11 +141,11 @@
 
                 <p>
                 <ul>
-                    <li>Hooray! Your software is on live!
+                    <li class="plus">Hooray! Your software is on live!
                         Let’s NOT sit back and relax. Let’s be sure that this is what the world really needs. It’s about
                         getting proactive monitoring in place.
                     </li>
-                    <li>Gareth will run all assumptions which are scheduled and will display the result on a dashboard.
+                    <li class="plus">Gareth will run all assumptions which are scheduled and will display the result on a dashboard.
                         Here the Product Owner and
                         stakeholders can see if their assumptions hold up. Based on this information the backlog and
                         roadmaps could be adjusted.
@@ -166,7 +162,7 @@
 
                 <p>
                 <ul>
-                    <li>Feedback is one of the core features of Gareth. Gareth will alert you when an assumption is not
+                    <li class="plus">Feedback is one of the core features of Gareth. Gareth will alert you when an assumption is not
                         right or is not right anymore due to a change in the software.
                         These are the thing we think we can really benefit from. We are now able to decide to adjust the
                         feature or maybe completely remove it based on evidence.
@@ -188,9 +184,10 @@
 
 <section class="explained">
     <div class="container lean-explained-grey">
+
         <div class="row">
 
-            <div class="txt-part-wide-left">
+            <div class="txt-part-wide-intro">
                 <h4>Stories that don’t suck:</h4>
 
                 <p>
@@ -208,63 +205,76 @@
                 </p>
             </div>
             <div class="lean-part">
-                <br>
-                <br>
-                <img src="images/Icons/file.png" class="lean-image"/>
+                <img src="images/Icons/file.png" class="centered-image"/>
             </div>
 
         </div>
 
+        <div class="row">
+            <div class="lean-part-small">
+
+                <h5>User Story:</h5>
+
+            </div>
+
+            <div class="lean-part-white">
+
+                  <p>As a BusDevOps consultant,<br>
+                      I want a simple subscription form on my website,<br>
+                      So that I have the information of the people that want to know more about BusDevOps.<br>
+                  </p>
+            </div>
+        </div>
 
         <div class="row">
-            <div class="lean-part">
-                <h4>User story</h4>
+            <div class="lean-part-small">
 
-                <p>As a BusDevOps consultant,<br>
-                    I want a simple subscription form on my website,<br>
-                    So that I have the information of the people that want to know more about BusDevOps.<br>
-                </p>
+                <h5>The behaviour:</h5>
+
             </div>
 
-            <div class="lean-part">
-                <h4>The behaviour</h4>
+            <div class="lean-part-white">
 
-                <p>
-                    Feature: Let people easily fill in their credentials and give them some feedback.<br>
-                    <br>
-                    Scenario: Fill the BusDevOps form.<br>
-                    <br>
-                    Given I am on the form page<br>
-                    When I fill in my name<br>
-                    And I fill in my email address<br>
-                    And I select the submit button<br>
-                    Then the message "submission accepted" should be displayed<br>
+              <p>
+                  Feature: Let people easily fill in their credentials and give them some feedback.<br>
+                  <br>
+                  Scenario: Fill the BusDevOps form.<br>
+                  <br>
+                  Given I am on the form page<br>
+                  When I fill in my name<br>
+                  And I fill in my email address<br>
+                  And I select the submit button<br>
+                  Then the message "submission accepted" should be displayed<br>
+              </p>
 
+            </div>
+        </div>
 
-                </p>
+        <div class="row">
+            <div class="lean-part-small">
+
+                <h5>Validations:</h5>
+
             </div>
 
+            <div class="lean-part-white">
 
-            <div class="lean-part">
+              <p>
+                  Experiment: I want to validate the amount of expected use of the subscription form. I think this
+                  subject is very popular and will give me world fame.<br>
+                  <br>
+                  Baseline: Get the current filled in forms.<br>
+                  Assumption: There will be at least an increase of 80 filled forms in the first 2 months.<br>
 
+                  Baseline: Get the current filled in forms per month.<br>
+                  Assumption: There will be at least 25 filled forms every month for the next 12 months.<br>
 
-                <h4>Validation</h4>
+                  Baseline: Get the current amount of calls to the info number.<br>
+                  Assumption: There will be at least an minimum of 15 calls about BusDevOps per month the next 6
+                  months.<br>
 
-                <p>
-                    Experiment: I want to validate the amount of expected use of the subscription form. I think this
-                    subject is very popular and will give me world fame.<br>
-                    <br>
-                    Baseline: Get the current filled in forms.<br>
-                    Assumption: There will be at least an increase of 80 filled forms in the first 2 months.<br>
+              </p>
 
-                    Baseline: Get the current filled in forms per month.<br>
-                    Assumption: There will be at least 25 filled forms every month for the next 12 months.<br>
-
-                    Baseline: Get the current amount of calls to the info number.<br>
-                    Assumption: There will be at least an minimum of 15 calls about BusDevOps per month the next 6
-                    months.<br>
-
-                </p>
             </div>
         </div>
     </div>
@@ -300,13 +310,29 @@
 <script type="application/javascript"
         src="http://raw.githubusercontent.com/Hylke1982/marmottajax/master/bin/marmottajax.min.js"><!-- --></script>
 <script type="application/javascript" src="scripts/signup.js"><!-- --></script>
+
 <footer class="wrap">
     <div class="container lean-explained">
         <div class="row">
             <div class="txt-part-wide-left">
-                <p>
-                    Link to github iod
-                </p>
+              <ul>
+                <li class="horizontal" data-type="github">
+                </li>
+                <li class="horizontal">
+                  <a href="https://github.com/craftsmenlabs/gareth-poc">GitHub</a>
+                </li>
+                <li class="horizontal" data-type="twitter">
+                </li>
+                <li class="horizontal">
+                  <a href="https://twitter.com/hylke1982">hylke1982</a>
+                </li>
+                <li class="horizontal" data-type="twitter">
+                </li>
+                <li class="horizontal">
+                  <a href="https://twitter.com/NielsTalens">NielsTalens</a>
+                </li>
+              </ul>
+
             </div>
             <div class="lean-part">
                 <img src="images/gareth-logo-big.png" class="footer-image" alt="Gareth Logo"/>
