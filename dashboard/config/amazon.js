@@ -1,3 +1,3 @@
 var config =  {
-    "backendExperimentUrl" : "http://dsl.gareth.craftsmenlabs.org"
+    "backendExperimentUrl" : "http://dsl.gareth.craftsmenlabs.org/experiments"
 }

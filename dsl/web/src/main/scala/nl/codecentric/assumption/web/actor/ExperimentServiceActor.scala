@@ -31,7 +31,7 @@ trait ExperimentService extends HttpService {
 
   val experimentRoute = path("experiments") {
     get {
-      respondWithHeaders(Origin(Seq(HttpOrigin("http://localhost:9999"), HttpOrigin("http://33.33.33.60:8765"))), `Content-Type`(MediaTypes.`application/json`), `Access-Control-Allow-Origin`(AllOrigins)) {
+      respondWithHeaders(Origin(Seq(HttpOrigin("http://localhost:9999"), HttpOrigin("http://33.33.33.60:8765"), HttpOrigin("http://dashboard.gareth.craftsmenlabs.org"))), `Content-Type`(MediaTypes.`application/json`), `Access-Control-Allow-Origin`(AllOrigins)) {
         complete {
           import spray.httpx.SprayJsonSupport._
           ExperimentEngineBuilder.experimentExecutionContexts.toList
