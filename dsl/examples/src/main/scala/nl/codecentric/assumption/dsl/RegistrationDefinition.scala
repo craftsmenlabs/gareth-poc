@@ -25,6 +25,14 @@ class RegistrationDefinition extends BaseDefinition {
 
   "In one week" time (1 minutes)
 
+  "Send a cake to the development team" success (() => {
+    println("Sending cake")
+  })
+
+  "Send a message to the product owner" failure (() => {
+    println("Having a firm talk with the product owner")
+  })
+
   def getRegistrationCount(): Integer = {
     val response: HttpResponse[String] = Http("http://33.33.33.60:8888/count")
       .timeout(connTimeoutMs = 1000, readTimeoutMs = 5000)

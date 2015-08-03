@@ -3,6 +3,8 @@ Experiment: Increased registrations
 Baseline: Get the current count of registrations
 Assumption: The amount of registrations is increased with 50
 Time: In one week
+Success: Send a cake to the development team
+Failure: Send a message to the product owner
 
 Baseline: Get the current count of registrations
 Assumption: The amount of registrations is increased with 200
