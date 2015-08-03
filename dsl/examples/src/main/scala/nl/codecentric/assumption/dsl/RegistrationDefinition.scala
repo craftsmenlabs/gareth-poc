@@ -23,10 +23,12 @@ class RegistrationDefinition extends BaseDefinition {
     println("Assume count is", assumeCount)
   })
 
-  "In one week" time (2 minutes)
+  "In one week" time (1 minutes)
 
   def getRegistrationCount(): Integer = {
-    val response: HttpResponse[String] = Http("http://33.33.33.60:8888/count").asString
+    val response: HttpResponse[String] = Http("http://33.33.33.60:8888/count")
+      .timeout(connTimeoutMs = 1000, readTimeoutMs = 5000)
+      .asString
     val json = parse(response.body);
     (json \ "count").extract[Integer]
   }
