@@ -248,76 +248,6 @@
         ]
       }
     },
-    "GarethDslLoadBalancer": {
-      "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
-      "Properties": {
-        "CrossZone": "true",
-        "AvailabilityZones": {
-          "Fn::GetAZs": ""
-        },
-        "LBCookieStickinessPolicy": [
-          {
-            "PolicyName": "CookieBasedPolicy",
-            "CookieExpirationPeriod": "30"
-          }
-        ],
-        "Listeners": [
-          {
-            "LoadBalancerPort": "80",
-            "InstancePort": "9999",
-            "Protocol": "HTTP",
-            "PolicyNames": [
-              "CookieBasedPolicy"
-            ]
-          }
-        ],
-        "HealthCheck": {
-          "Target": "HTTP:9999/experiments",
-          "HealthyThreshold": "2",
-          "UnhealthyThreshold": "5",
-          "Interval": "10",
-          "Timeout": "5"
-        },
-        "SecurityGroups": [
-          { "Fn::GetAtt" : [ "GarethDemoSiteWebSecurityGroup", "GroupId" ] }
-        ]
-      }
-    },
-    "GarethDslDashboardLoadBalancer": {
-      "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
-      "Properties": {
-        "CrossZone": "true",
-        "AvailabilityZones": {
-          "Fn::GetAZs": ""
-        },
-        "LBCookieStickinessPolicy": [
-          {
-            "PolicyName": "CookieBasedPolicy",
-            "CookieExpirationPeriod": "30"
-          }
-        ],
-        "Listeners": [
-          {
-            "LoadBalancerPort": "80",
-            "InstancePort": "8765",
-            "Protocol": "HTTP",
-            "PolicyNames": [
-              "CookieBasedPolicy"
-            ]
-          }
-        ],
-        "HealthCheck": {
-          "Target": "HTTP:8765/",
-          "HealthyThreshold": "2",
-          "UnhealthyThreshold": "5",
-          "Interval": "10",
-          "Timeout": "5"
-        },
-        "SecurityGroups": [
-          { "Fn::GetAtt" : [ "GarethDemoSiteWebSecurityGroup", "GroupId" ] }
-        ]
-      }
-    },
 
     "GarethCraftsmenlabsDNS" : {
       "Type" : "AWS::Route53::RecordSetGroup",
@@ -331,22 +261,6 @@
             "AliasTarget" : {
               "HostedZoneId" : { "Fn::GetAtt" : ["GarethLoadBalancer", "CanonicalHostedZoneNameID"] },
               "DNSName" : { "Fn::GetAtt" : ["GarethLoadBalancer","CanonicalHostedZoneName"] }
-            }
-          },
-          {
-            "Name" : "dsl.gareth.craftsmenlabs.org.",
-            "Type" : "A",
-            "AliasTarget" : {
-              "HostedZoneId" : { "Fn::GetAtt" : ["GarethDslLoadBalancer", "CanonicalHostedZoneNameID"] },
-              "DNSName" : { "Fn::GetAtt" : ["GarethDslLoadBalancer","CanonicalHostedZoneName"] }
-            }
-          },
-          {
-            "Name" : "dashboard.gareth.craftsmenlabs.org.",
-            "Type" : "A",
-            "AliasTarget" : {
-              "HostedZoneId" : { "Fn::GetAtt" : ["GarethDslDashboardLoadBalancer", "CanonicalHostedZoneNameID"] },
-              "DNSName" : { "Fn::GetAtt" : ["GarethDslDashboardLoadBalancer","CanonicalHostedZoneName"] }
             }
           }
         ]
@@ -368,12 +282,6 @@
         "LoadBalancerNames": [
           {
             "Ref": "GarethLoadBalancer"
-          },
-          {
-            "Ref": "GarethDslLoadBalancer"
-          },
-          {
-            "Ref": "GarethDslDashboardLoadBalancer"
           }
 
         ],
